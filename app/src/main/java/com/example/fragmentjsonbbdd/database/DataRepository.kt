@@ -5,10 +5,12 @@ import android.os.AsyncTask
 
 class DataRepository(context: Context) {
     private val asignaturasDao: AsignaturasDao? = AppDatabase.getInstance(context)?.asignaturasDao()
+    private val profesoresDao: ProfesoresDao? = AppDatabase.getInstance(context)?.profesoresDao()
+    private val profesoresAsignaturasDao: ProfesoresAsignaturasDao? = AppDatabase.getInstance(context)?.profesoresAsignaturasDao()
 
-    fun insert(asignaturas: Asignaturas):Int {
-        if (asignaturasDao != null){
-            return InsertAsyncTask(asignaturasDao).execute(asignaturas).get()
+    fun insert(pedidoProducto: PedidoProducto):Int{
+        if (pedidoDao != null && productoDao !=null && pedidoProductoDao!= null) {
+            return InsertPedidoProductoAsyncTask(pedidoDao, productoDao, pedidoProductoDao).execute(pedidoProducto).get()
         }
         return -1
     }

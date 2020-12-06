@@ -17,7 +17,7 @@ data class ProfesoresAsignaturas(
     var asignaturas: List<Asignaturas>
 )
 
-@Entity(primaryKeys = ["profesoresId", "productId"])
+@Entity(primaryKeys = ["profesoresId", "asignaturasId"])
 data class ProfesoresAsignaturasCrossRef(
     val profesoresId: Int,
     val asignaturasId: Int
