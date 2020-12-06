@@ -2,11 +2,21 @@ package com.example.fragmentjsonbbdd
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.view.View
+import android.widget.*
 import com.example.fragmentjsonbbdd.database.*
+import com.example.fragmentjsonbbdd.fragments.FragmentListaProfesor
 
 class MainActivity : AppCompatActivity() {
+
+    var frameLayoutFragmentProfesor: FrameLayout? = null
+    var frameLayoutLista: FrameLayout? = null
+  //  var frameLayoutFicha: FrameLayout? = null
+
+    var listaFragment: FragmentListaProfesor? = null
+  //  var fichaFragment: FichaFragment? = null
+    var segundoFragmentActivo = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,13 +29,26 @@ class MainActivity : AppCompatActivity() {
         var pedidosGuardados = dataRepository.getAsignaturas()
         var ArraySpinner = ArrayList<String>()
         ArraySpinner.add("Selecciona uno: ")
-        for(items in pedidosGuardados) {
+        for (items in pedidosGuardados) {
             ArraySpinner.add(items.nombre.toString())
         }
         //Rellenamos el spinner con el array que acabamos de hacer
-        spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ArraySpinner)
+        spinner.adapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ArraySpinner)
+        if (spinner != null) {
 
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
+                    Toast.makeText(this@MainActivity, spinner.selectedItem.toString(), Toast.LENGTH_SHORT).show()
+                    verProfesores()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
 
 
 
@@ -72,6 +95,61 @@ class MainActivity : AppCompatActivity() {
         dataRepository.insertAlumnosAsignaturas(alumnosAsignaturas3)
         dataRepository.insertAlumnosAsignaturas(alumnosAsignaturas1)
 
+    }
+    //    var activityListener = View.OnClickListener {
+//        if (frameLayoutFragment!=null) {
+//            val fragmentManager = supportFragmentManager
+//            val fragmentTransaction = fragmentManager.beginTransaction()
+//            fragmentTransaction.replace(R.id.frameLayoutFragment, fichaFragment!!)
+//            fragmentTransaction.commit()
+//            fragmentManager.executePendingTransactions()
+//            segundoFragmentActivo = true
+//        }
+//
+//
+//        fichaFragment!!.updateData(listaFragment!!.itemSeleccionado)
+//    }
+
+
+    private fun verProfesores(){
+        frameLayoutFragmentProfesor = findViewById(R.id.frameLayoutProfesor)
+        //frameLayoutFicha = findViewById(R.id.frameLayoutFicha)
+        frameLayoutFragmentProfesor = findViewById(R.id.frameLayoutProfesor)
+
+        listaFragment = FragmentListaProfesor.newInstance()
+        // listaFragment!!.activityListener = activityListener
+
+        //fichaFragment = FichaFragment()
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+//        if (frameLayoutFragmentProfesor ==null){
+//            // HORIZONTAL
+//            fragmentTransaction.add(R.id.frameLayoutLista, listaFragment!!)
+//            fragmentTransaction.add(R.id.frameLayoutFicha, fichaFragment!!)
+//        }
+//        else {
+//            fragmentTransaction.add(R.id.frameLayoutFragment, listaFragment!!)
+//        }
+        fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragment!!)
+        fragmentTransaction.commit()
+    }
+
+
+
+    override fun onBackPressed() {
+        if (segundoFragmentActivo && frameLayoutFragmentProfesor != null){
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.frameLayoutProfesor, listaFragment!!)
+            fragmentTransaction.commit()
+            fragmentManager.executePendingTransactions()
+            segundoFragmentActivo = false
+        }
+        else{
+            super.onBackPressed()
+        }
     }
 
 
