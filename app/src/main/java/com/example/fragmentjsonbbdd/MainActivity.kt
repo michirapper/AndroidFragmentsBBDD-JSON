@@ -2,12 +2,27 @@ package com.example.fragmentjsonbbdd
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import com.example.fragmentjsonbbdd.database.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var dataRepository = DataRepository(this)
+
+        //Rellenamos el array con al array que hemos recibido de la Query
+        val spinner = findViewById<Spinner>(R.id.spinner)
+        var pedidosGuardados = dataRepository.getAsignaturas()
+        var ArraySpinner = ArrayList<String>()
+        ArraySpinner.add("Selecciona uno: ")
+        for(items in pedidosGuardados) {
+            ArraySpinner.add(items.nombre.toString())
+        }
+        //Rellenamos el spinner con el array que acabamos de hacer
+        spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ArraySpinner)
 
         rellenarAsignaturas()
     }
@@ -30,17 +45,17 @@ class MainActivity : AppCompatActivity() {
         var profesores1 = Profesores(1, "Antonio", "Mendoza")
         var profesores2 = Profesores(2, "Manuel", "Perez")
 
-        var profesoresAsignaturas1 = ProfesoresAsignaturas(profesores1,listaAsignaturas1)
-        var profesoresAsignaturas2 = ProfesoresAsignaturas(profesores2,listaAsignaturas2)
+        var profesoresAsignaturas1 = ProfesoresAsignaturas(profesores1, listaAsignaturas1)
+        var profesoresAsignaturas2 = ProfesoresAsignaturas(profesores2, listaAsignaturas2)
 
 
-        var alumno1 = Alumnos(1,"Alumno1", "ApellidoAlumno1")
-        var alumno2 = Alumnos(2,"Alumno2", "ApellidoAlumno2")
-        var alumno3 = Alumnos(3,"Alumno3", "ApellidoAlumno3")
+        var alumno1 = Alumnos(1, "Alumno1", "ApellidoAlumno1")
+        var alumno2 = Alumnos(2, "Alumno2", "ApellidoAlumno2")
+        var alumno3 = Alumnos(3, "Alumno3", "ApellidoAlumno3")
 
-        var alumnosAsignaturas2 = AlumnosAsignaturas(alumno2,listaAsignaturas1)
-        var alumnosAsignaturas3 = AlumnosAsignaturas(alumno3,listaAsignaturas2)
-        var alumnosAsignaturas1 = AlumnosAsignaturas(alumno1,listaAsignaturas3)
+        var alumnosAsignaturas2 = AlumnosAsignaturas(alumno2, listaAsignaturas1)
+        var alumnosAsignaturas3 = AlumnosAsignaturas(alumno3, listaAsignaturas2)
+        var alumnosAsignaturas1 = AlumnosAsignaturas(alumno1, listaAsignaturas3)
 
 
         var dataRepository = DataRepository(this)
