@@ -11,7 +11,7 @@ interface AsignaturasDao {
     fun getAsignaturas(): List<Asignaturas>
 
     @Insert
-    fun insertAll(products: List<Asignaturas>)
+    fun insertAll(asignaturas: List<Asignaturas>)
 
     @Insert
     fun insertAll(vararg asignaturas: Asignaturas)
