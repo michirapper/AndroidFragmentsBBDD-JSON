@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        rellenarAsignaturas()
 
         var dataRepository = DataRepository(this)
 
@@ -24,7 +25,12 @@ class MainActivity : AppCompatActivity() {
         //Rellenamos el spinner con el array que acabamos de hacer
         spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ArraySpinner)
 
-        rellenarAsignaturas()
+
+
+
+
+
+
     }
 
     private fun rellenarAsignaturas() {
