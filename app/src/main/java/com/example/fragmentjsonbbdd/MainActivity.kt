@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         var profesoresAsignaturas2 = ProfesoresAsignaturas(profesores2,listaAsignaturas2)
 
         var dataRepository = DataRepository(this)
-        dataRepository.insert(asignatura1)
-        dataRepository.insert(asignatura2)
+        dataRepository.insert(profesoresAsignaturas1)
+        dataRepository.insert(profesoresAsignaturas2)
     }
 
 }

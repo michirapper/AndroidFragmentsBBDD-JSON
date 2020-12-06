@@ -7,8 +7,6 @@ import androidx.room.Query
 
 @Dao
 interface AsignaturasDao {
-    @Query("SELECT * FROM  asignaturas")
-    fun getAsignaturas(): List<Asignaturas>
 
     @Insert
     fun insertAll(asignaturas: List<Asignaturas>)

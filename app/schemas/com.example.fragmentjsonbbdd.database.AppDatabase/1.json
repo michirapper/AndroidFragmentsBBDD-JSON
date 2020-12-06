@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5a06ab2de1594e56c840127c3a388b5c",
+    "identityHash": "cfbae4bc0838059cae8845b70a7a558d",
     "entities": [
       {
         "tableName": "Asignaturas",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `nombre` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`asignaturasId` INTEGER NOT NULL, `nombre` TEXT, PRIMARY KEY(`asignaturasId`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "asignaturasId",
+            "columnName": "asignaturasId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -23,7 +23,72 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "asignaturasId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Profesores",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`profesoresId` INTEGER NOT NULL, `codigo` INTEGER, `nombre` TEXT, `apellido` TEXT, PRIMARY KEY(`profesoresId`))",
+        "fields": [
+          {
+            "fieldPath": "profesoresId",
+            "columnName": "profesoresId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codigo",
+            "columnName": "codigo",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "apellido",
+            "columnName": "apellido",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "profesoresId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ProfesoresAsignaturasCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`profesoresId` INTEGER NOT NULL, `asignaturasId` INTEGER NOT NULL, PRIMARY KEY(`profesoresId`, `asignaturasId`))",
+        "fields": [
+          {
+            "fieldPath": "profesoresId",
+            "columnName": "profesoresId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "asignaturasId",
+            "columnName": "asignaturasId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "profesoresId",
+            "asignaturasId"
           ],
           "autoGenerate": false
         },
@@ -34,7 +99,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5a06ab2de1594e56c840127c3a388b5c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cfbae4bc0838059cae8845b70a7a558d')"
     ]
   }
 }

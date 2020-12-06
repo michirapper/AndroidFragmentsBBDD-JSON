@@ -6,10 +6,4 @@ import androidx.room.*
 interface ProfesoresAsignaturasDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(join: ProfesoresAsignaturasCrossRef)
-
-    @Transaction
-    @Query("SELECT * FROM profesores")
-    fun getProfesores(): List<ProfesoresAsignaturasDao>
-
-
 }
