@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     var fichaFragment: FragmentFichaAlumno? = null
 
-  //  var fichaFragment: FichaFragment? = null
     var segundoFragmentActivo = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,12 +47,7 @@ class MainActivity : AppCompatActivity() {
         if (spinner != null) {
 
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View,
-                    position: Int,
-                    id: Long
-                ) {
+                override fun onItemSelected(parent: AdapterView<*>,view: View,position: Int,id: Long) {
 
                     Toast.makeText(this@MainActivity,spinner.selectedItem.toString(),Toast.LENGTH_SHORT).show()
                     verProfesores(spinner.selectedItem.toString())
@@ -65,11 +59,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-
-
-
     }
 
     private fun rellenarAsignaturas() {
@@ -119,20 +108,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    //    var activityListener = View.OnClickListener {
-//        if (frameLayoutFragment!=null) {
-//            val fragmentManager = supportFragmentManager
-//            val fragmentTransaction = fragmentManager.beginTransaction()
-//            fragmentTransaction.replace(R.id.frameLayoutFragment, fichaFragment!!)
-//            fragmentTransaction.commit()
-//            fragmentManager.executePendingTransactions()
-//            segundoFragmentActivo = true
-//        }
-//
-//
-//        fichaFragment!!.updateData(listaFragment!!.itemSeleccionado)
-//    }
-
 
     private fun verProfesores(asignatura: String){
         if (!asignatura.equals("Seleccione uno:")) {
@@ -183,39 +158,13 @@ class MainActivity : AppCompatActivity() {
     var activityListener = View.OnClickListener {
         if (frameLayoutFragmentFicha!=null) {
             fichaFragment!!.updateData(listaFragmentAlumno!!.itemSeleccionado)
-          //  Toast.makeText(this@MainActivity,listaFragmentAlumno!!.itemSeleccionado.toString(),Toast.LENGTH_SHORT).show()
+
         }else{
             val intent = Intent(this, alumnoFichaActivity::class.java).apply {
                 putExtra("idAlumno", listaFragmentAlumno!!.itemSeleccionado?.id.toString())
             }
             startActivity(intent)
         }
-
-
-
-
-//        Toast.makeText(this@MainActivity,
-//            listaFragmentAlumno!!.itemSeleccionado?.id.toString(),Toast.LENGTH_SHORT).show()
-
-
     }
-
-
-
-//    override fun onBackPressed() {
-//        if (segundoFragmentActivo && frameLayoutFragmentProfesor != null && frameLayoutFragmentAlumnos!= null){
-//            val fragmentManager = supportFragmentManager
-//            val fragmentTransaction = fragmentManager.beginTransaction()
-//            fragmentTransaction.replace(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
-//            fragmentTransaction.replace(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
-//            fragmentTransaction.commit()
-//            fragmentManager.executePendingTransactions()
-//            segundoFragmentActivo = false
-//        }
-//        else{
-//            super.onBackPressed()
-//        }
-//    }
-
 
 }

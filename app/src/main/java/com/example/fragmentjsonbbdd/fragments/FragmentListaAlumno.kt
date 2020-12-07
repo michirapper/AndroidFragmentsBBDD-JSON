@@ -62,15 +62,7 @@ class FragmentListaAlumno : Fragment() {
         }
 
         recyclerViewLista.setAdapter(adapter)
-        recyclerViewLista.setLayoutManager(
-            LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL,
-                false
-            )
-        )
-
-
+        recyclerViewLista.setLayoutManager(LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false))
 
         return v
     }

@@ -42,8 +42,6 @@ class FragmentFichaAlumno : Fragment(){
             textViewApellido!!.text = alumnosGuardados.get(0).apellido
         }
 
-
-
         return v
     }
     fun updateData(item: alumno?) {
