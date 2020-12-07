@@ -34,7 +34,7 @@ class ItemAdapterProfesor(var items: ArrayList<profesor>, private val listener: 
 
         fun bindItems(cliente: profesor) {
             val textViewNombre = itemView.findViewById<TextView>(R.id.textViewNombre)
-            textViewNombre.text = cliente.nombre
+            textViewNombre.text = cliente.nombre + " " +cliente.apellido
         }
     }
 }

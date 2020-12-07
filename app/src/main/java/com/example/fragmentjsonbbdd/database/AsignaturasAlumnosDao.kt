@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 
 @Dao
-interface AlumnosAsignaturasDao {
+interface AsignaturasAlumnosDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(join: AlumnosAsignaturasCrossRef)
+    fun insert(join: AsignaturasAlumnosCrossRef)
 }

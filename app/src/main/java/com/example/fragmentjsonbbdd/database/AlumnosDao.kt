@@ -7,4 +7,6 @@ import androidx.room.Insert
 interface AlumnosDao {
     @Insert
     fun insertAll(vararg alumnos: Alumnos)
+    @Insert
+    fun insertAll(alumnos: List<Alumnos>)
 }

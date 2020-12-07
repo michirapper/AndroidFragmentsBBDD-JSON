@@ -8,7 +8,7 @@ class DataRepository(context: Context) {
     private val profesoresDao: ProfesoresDao? = AppDatabase.getInstance(context)?.profesoresDao()
     private val alumnosDao: AlumnosDao? = AppDatabase.getInstance(context)?.alumnosDao()
     private val profesoresAsignaturasDao: ProfesoresAsignaturasDao? = AppDatabase.getInstance(context)?.profesoresAsignaturasDao()
-    private val alumnosAsignaturasDao: AlumnosAsignaturasDao?= AppDatabase.getInstance(context)?.alumnosAsignaturasDao()
+    private val asignaturasAlumnosDao: AsignaturasAlumnosDao?= AppDatabase.getInstance(context)?.alumnosAsignaturasDao()
 
     fun insertProfesoresAsignaturas(profesoresAsignaturas: ProfesoresAsignaturas):Int{
         if (profesoresDao != null && asignaturasDao !=null && profesoresAsignaturasDao!= null) {
@@ -16,14 +16,19 @@ class DataRepository(context: Context) {
         }
         return -1
     }
-    fun insertAlumnosAsignaturas(alumnosAsignaturas: AlumnosAsignaturas):Int{
-        if (alumnosDao != null && asignaturasDao !=null && alumnosAsignaturasDao!= null) {
-            return InsertAlumnosAsignaturaAsyncTask(alumnosDao, asignaturasDao, alumnosAsignaturasDao).execute(alumnosAsignaturas).get()
+
+    fun insertAsignaturasAlumnos(asignaturasAlumnos: AsignaturasAlumnos):Int{
+        if (asignaturasDao != null && alumnosDao !=null && asignaturasAlumnosDao!= null) {
+            return InsertAsignaturasAlumnosAsyncTask(asignaturasDao, alumnosDao, asignaturasAlumnosDao).execute(asignaturasAlumnos).get()
         }
         return -1
     }
+
     fun getAsignaturas(): Array<Asignaturas>{
         return GetAsignaturas(asignaturasDao!!).execute().get()
+    }
+    fun getProfesorOne(idAsignatura: Int): List<ProfesoresAsignaturas>{
+        return GetProfesorOne(profesoresAsignaturasDao!!, idAsignatura).execute().get()
     }
 
     private class InsertProfesoresAsignaturasAsyncTask(private val profesoresDao: ProfesoresDao, private val asignaturasDao: AsignaturasDao, private val profesoresAsignaturasDao: ProfesoresAsignaturasDao): AsyncTask<ProfesoresAsignaturas, Void, Int>(){
@@ -47,15 +52,15 @@ class DataRepository(context: Context) {
         }
     }
 
-    private class InsertAlumnosAsignaturaAsyncTask(private val alumnosDao: AlumnosDao, private val asignaturasDao: AsignaturasDao, private val alumnosAsignaturasDao: AlumnosAsignaturasDao): AsyncTask<AlumnosAsignaturas, Void, Int>(){
-        override fun doInBackground(vararg alumnosAsignaturas: AlumnosAsignaturas?): Int {
+    private class InsertAsignaturasAlumnosAsyncTask(private val asignaturasDao: AsignaturasDao, private val alumnosDao: AlumnosDao, private val asignaturasAlumnosDao: AsignaturasAlumnosDao): AsyncTask<AsignaturasAlumnos, Void, Int>(){
+        override fun doInBackground(vararg asignaturasAlumnos: AsignaturasAlumnos?): Int {
             try{
-                for (alumnosAsignaturas in alumnosAsignaturas){
-                    if (alumnosAsignaturas !=null){
-                        alumnosDao.insertAll(alumnosAsignaturas.alumnos)
-                        //asignaturasDao.insertAll(alumnosAsignaturas.asignaturas)
-                        for (asignaturas in alumnosAsignaturas.asignaturas){
-                            alumnosAsignaturasDao.insert(AlumnosAsignaturasCrossRef(alumnosAsignaturas.alumnos.alumnosId, asignaturas.asignaturasId))
+                for (asignaturasAlumnos in asignaturasAlumnos){
+                    if (asignaturasAlumnos !=null){
+                        asignaturasDao.insertAll(asignaturasAlumnos.asignaturas)
+                        alumnosDao.insertAll(asignaturasAlumnos.alumnos)
+                        for (alumnos in asignaturasAlumnos.alumnos){
+                            asignaturasAlumnosDao.insert(AsignaturasAlumnosCrossRef(asignaturasAlumnos.asignaturas.asignaturasId, alumnos.alumnosId))
                         }
                     }
                 }
@@ -71,6 +76,11 @@ class DataRepository(context: Context) {
     private class GetAsignaturas(private val asignaturasDao: AsignaturasDao) :AsyncTask<Void, Void, Array<Asignaturas>>(){
         override fun doInBackground(vararg params: Void?): Array<Asignaturas> {
             return asignaturasDao.getAsignaturas()
+        }
+    }
+    private class GetProfesorOne(private val profesoresAsignaturasDao: ProfesoresAsignaturasDao, private val idAsignatura: Int) :AsyncTask<Void, Void, List<ProfesoresAsignaturas>>(){
+        override fun doInBackground(vararg params: Void?): List<ProfesoresAsignaturas> {
+            return profesoresAsignaturasDao.getProfesorOne(idAsignatura)
         }
     }
 
