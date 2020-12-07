@@ -14,12 +14,15 @@ class MainActivity : AppCompatActivity() {
 
     var frameLayoutFragmentProfesor: FrameLayout? = null
     var frameLayoutFragmentAlumnos: FrameLayout? = null
+    var frameLayoutFragmentFicha: FrameLayout? = null
     var frameLayoutLista: FrameLayout? = null
   //  var frameLayoutFicha: FrameLayout? = null
 
     var listaFragmentProfesor: FragmentListaProfesor? = null
 
     var listaFragmentAlumno: FragmentListaAlumno? = null
+
+    var fichaFragment: FragmentFichaAlumno? = null
 
   //  var fichaFragment: FichaFragment? = null
     var segundoFragmentActivo = false
@@ -142,8 +145,11 @@ class MainActivity : AppCompatActivity() {
 
             frameLayoutFragmentAlumnos = findViewById(R.id.frameLayoutAlumno)
 
+            frameLayoutFragmentFicha = findViewById(R.id.frameLayoutFicha)
+
             frameLayoutFragmentProfesor?.removeAllViewsInLayout()
             frameLayoutFragmentAlumnos?.removeAllViewsInLayout()
+            frameLayoutFragmentFicha?.removeAllViewsInLayout()
 
 
 
@@ -154,43 +160,38 @@ class MainActivity : AppCompatActivity() {
             listaFragmentProfesor!!.setArguments(asignaturaNombre)
             listaFragmentAlumno!!.setArguments(asignaturaNombre)
 
+            fichaFragment = FragmentFichaAlumno()
 
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
 
-//        if (frameLayoutFragmentficha !=null){
-//            // HORIZONTAL
-//            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
-//            fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
-//           // fragmentTransaction.add(R.id.frameLayoutFicha, fichaFragment!!)
-//        }
-//        else {
-//            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
-//            fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
-//        }
+        if (frameLayoutFragmentFicha !=null){
+            // HORIZONTAL
             fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
             fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
+            fragmentTransaction.add(R.id.frameLayoutFicha, fichaFragment!!)
+        }
+        else {
+            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
+            fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
+        }
 
             fragmentTransaction.commit()
-        }else{
-
         }
     }
 
     var activityListener = View.OnClickListener {
-//        if (frameLayoutFragmentficha==null) {
-//            val fragmentManager = supportFragmentManager
-//            val fragmentTransaction = fragmentManager.beginTransaction()
-//            fragmentTransaction.replace(R.id.frameLayoutFragment, fichaFragment!!)
-//            fragmentTransaction.commit()
-//            fragmentManager.executePendingTransactions()
-//            segundoFragmentActivo = true
-//        }
-
-        val intent = Intent(this, alumnoFichaActivity::class.java).apply {
-            putExtra("idAlumno", listaFragmentAlumno!!.itemSeleccionado?.id.toString())
+        if (frameLayoutFragmentFicha!=null) {
+            fichaFragment!!.updateData(listaFragmentAlumno!!.itemSeleccionado)
+          //  Toast.makeText(this@MainActivity,listaFragmentAlumno!!.itemSeleccionado.toString(),Toast.LENGTH_SHORT).show()
+        }else{
+            val intent = Intent(this, alumnoFichaActivity::class.java).apply {
+                putExtra("idAlumno", listaFragmentAlumno!!.itemSeleccionado?.id.toString())
+            }
+            startActivity(intent)
         }
-        startActivity(intent)
+
+
 
 
 //        Toast.makeText(this@MainActivity,

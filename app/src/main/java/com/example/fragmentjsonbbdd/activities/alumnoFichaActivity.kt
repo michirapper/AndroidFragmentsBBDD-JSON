@@ -13,7 +13,7 @@ class alumnoFichaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_alumnos_ficha)
+        setContentView(R.layout.activity_alumno_ficha)
 
         val messeage = intent.getStringExtra("idAlumno")
 

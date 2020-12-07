@@ -27,22 +27,30 @@ class FragmentFichaAlumno : Fragment(){
     ): View? {
         // Inflate the layout for this fragment
         val v =  inflater.inflate(R.layout.fragment_ficha_alumnos, container, false)
-        val idAlumno = arguments!!.getString("idAlumno")!!.toInt()
+        val idAlumno = arguments?.getString("idAlumno")?.toInt()
 
         thiscontext = container?.getContext();
         var dataRepository = DataRepository(thiscontext!!)
 
-        var alumnosGuardados = dataRepository.GetAlumnoOne(idAlumno)
+        var alumnosGuardados = idAlumno?.let { dataRepository.GetAlumnoOne(it.toInt()) }
 
         textViewNombre = v.findViewById<View>(R.id.textViewFichaNombre) as TextView
         textViewApellido = v.findViewById<View>(R.id.textViewFichaApellido) as TextView
 
-
+        if (alumnosGuardados != null) {
             textViewNombre!!.text = alumnosGuardados.get(0).nombre
             textViewApellido!!.text = alumnosGuardados.get(0).apellido
+        }
+
 
 
         return v
+    }
+    fun updateData(item: alumno?) {
+        if (item!=null) {
+            textViewNombre!!.text = item.nombre
+            textViewApellido!!.text = item.apellido
+        }
     }
 
     companion object {
