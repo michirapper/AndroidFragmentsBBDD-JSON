@@ -95,8 +95,10 @@ class MainActivity : AppCompatActivity() {
         var asignaturasAlumnos1 = AsignaturasAlumnos(asignaturaBBDD, listaAlumnosBBDD)
         var asignaturasAlumnos2 = AsignaturasAlumnos(asignaturaProg, listaAlumnosProg)
 
-        var asignaturasProfesores2 = AsignaturasProfesores(asignaturaProg, listaProfesoresProg)
-        var asignaturasProfesores1 = AsignaturasProfesores(asignaturaBBDD, listaProfesoresBBDD)
+        var asignaturasProfesores1 = AsignaturasProfesores(asignaturaProg, listaProfesoresProg)
+        var asignaturasProfesores2 = AsignaturasProfesores(asignaturaBBDD, listaProfesoresBBDD)
+
+
 
 
 
@@ -108,6 +110,7 @@ class MainActivity : AppCompatActivity() {
 
         dataRepository.insertAsignaturasProfesores(asignaturasProfesores1)
         dataRepository.insertAsignaturasProfesores(asignaturasProfesores2)
+
 
     }
     //    var activityListener = View.OnClickListener {
@@ -128,8 +131,10 @@ class MainActivity : AppCompatActivity() {
     private fun verProfesores(asignatura: String){
         if (!asignatura.equals("")) {
             frameLayoutFragmentProfesor = findViewById(R.id.frameLayoutProfesor)
+
             //frameLayoutFicha = findViewById(R.id.frameLayoutFicha)
             frameLayoutFragmentProfesor = findViewById(R.id.frameLayoutProfesor)
+            frameLayoutFragmentProfesor?.removeAllViewsInLayout()
 
 
 

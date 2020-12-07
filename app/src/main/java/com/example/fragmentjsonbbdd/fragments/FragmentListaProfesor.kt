@@ -12,6 +12,7 @@ import com.example.fragmentjsonbbdd.R
 import com.example.fragmentjsonbbdd.adapters.ItemAdapterProfesor
 import com.example.fragmentjsonbbdd.database.DataRepository
 import com.example.fragmentjsonbbdd.model.profesor
+import java.util.function.Consumer
 
 class FragmentListaProfesor : Fragment(){
     var activityListener: View.OnClickListener? = null
@@ -32,15 +33,19 @@ class FragmentListaProfesor : Fragment(){
 
         val recyclerViewLista: RecyclerView = v.findViewById<View>(R.id.recyclerviewlista) as RecyclerView
         thiscontext = container?.getContext();
-//        var dataRepository = DataRepository(thiscontext!!)
-//        var pedidosGuardados = dataRepository.getProfesorOne(1)
-//        pedidosGuardados.size
+        var dataRepository = DataRepository(thiscontext!!)
+        var pedidosGuardados = dataRepository.getProfesorOne(1)
 
         var items = ArrayList<profesor>()
+//        for (i in pedidosGuardados){
+//            val contador = 0
+//           // pedidosGuardados.size
+//            //items.add(profesor( pedidosGuardados.size.toString(), "adios"))
+//            items.add(profesor(i.profesores.get(contador).nombre.toString(), i.profesores.get(contador).apellido.toString()))
+//            contador+1
+//        }
         for (i in 1..20){
-           // pedidosGuardados.size
-            //items.add(profesor( pedidosGuardados.size.toString(), "adios"))
-            items.add(profesor("hola", "adios"))
+            items.add(profesor(i.toString(), i.toString()))
         }
 
         val adapter = ItemAdapterProfesor(items) { item ->
