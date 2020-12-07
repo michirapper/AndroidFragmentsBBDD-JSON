@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fragmentjsonbbdd.R
 import com.example.fragmentjsonbbdd.adapters.ItemAdapterProfesor
-import com.example.fragmentjsonbbdd.database.AsignaturasProfesores
 import com.example.fragmentjsonbbdd.database.DataRepository
-import com.example.fragmentjsonbbdd.database.Profesores
 import com.example.fragmentjsonbbdd.model.profesor
 
 class FragmentListaProfesor : Fragment(){
@@ -44,24 +42,15 @@ class FragmentListaProfesor : Fragment(){
             numeroAsignatura = 2
         }
 
-        var pedidosGuardados = dataRepository.getProfesorOne(numeroAsignatura)
+
+        var profesoresGuardados = dataRepository.getProfesorOne(numeroAsignatura)
+        var profesor = profesoresGuardados.component1().profesores
+
         var items = ArrayList<profesor>()
-        for (i in pedidosGuardados){
-            val contador = 0
-           // pedidosGuardados.size
-            //items.add(profesor( pedidosGuardados.size.toString(), "adios"))
-            items.add(
-                profesor(
-                    i.profesores.get(contador).nombre.toString(), i.profesores.get(
-                        contador
-                    ).apellido.toString()
-                )
-            )
-            contador+1
+
+        for (i in 0..profesor.size-1) {
+            items.add(profesor(profesor.get(i).nombre.toString(), profesor.get(i).apellido.toString()))
         }
-//        for (i in 1..20){
-//            items.add(profesor(i.toString(), i.toString()))
-//        }
 
         val adapter = ItemAdapterProfesor(items) { item ->
             itemSeleccionado = item

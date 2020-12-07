@@ -11,6 +11,7 @@ import com.example.fragmentjsonbbdd.fragments.*
 class MainActivity : AppCompatActivity() {
 
     var frameLayoutFragmentProfesor: FrameLayout? = null
+    var frameLayoutFragmentAlumnos: FrameLayout? = null
     var frameLayoutLista: FrameLayout? = null
   //  var frameLayoutFicha: FrameLayout? = null
 
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val spinner = findViewById<Spinner>(R.id.spinner)
         var pedidosGuardados = dataRepository.getAsignaturas()
         var ArraySpinner = ArrayList<String>()
-        ArraySpinner.add("")
+        ArraySpinner.add("Seleccione uno:")
         for (items in pedidosGuardados) {
             ArraySpinner.add(items.nombre.toString())
         }
@@ -133,7 +134,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun verProfesores(asignatura: String){
-        if (!asignatura.equals("")) {
+        if (!asignatura.equals("Seleccione uno:")) {
 
             val asignaturaNombre = Bundle()
             asignaturaNombre.putString("asignatura", asignatura)
@@ -141,37 +142,37 @@ class MainActivity : AppCompatActivity() {
 
             frameLayoutFragmentProfesor = findViewById(R.id.frameLayoutProfesor)
 
-            //frameLayoutFicha = findViewById(R.id.frameLayoutFicha)
-            frameLayoutFragmentProfesor = findViewById(R.id.frameLayoutProfesor)
+            frameLayoutFragmentAlumnos = findViewById(R.id.frameLayoutAlumno)
+
             frameLayoutFragmentProfesor?.removeAllViewsInLayout()
+            frameLayoutFragmentAlumnos?.removeAllViewsInLayout()
 
 
 
             listaFragmentProfesor = FragmentListaProfesor.newInstance()
+            listaFragmentAlumno = FragmentListaAlumno.newInstance()
 
             listaFragmentProfesor!!.setArguments(asignaturaNombre)
+            listaFragmentAlumno!!.setArguments(asignaturaNombre)
 
-            // listaFragment!!.activityListener = activityListener
-
-            //fichaFragment = FichaFragment()
 
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
 
-//            val args = Bundle()
-//            args.putInt("position", 1)
-//            listaFragment!!.setArguments(args)
-
         if (frameLayoutFragmentProfesor ==null){
             // HORIZONTAL
             fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
+            fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
            // fragmentTransaction.add(R.id.frameLayoutFicha, fichaFragment!!)
         }
         else {
             fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
+            fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
         }
 
             fragmentTransaction.commit()
+        }else{
+           
         }
     }
 
