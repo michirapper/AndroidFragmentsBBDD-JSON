@@ -67,21 +67,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rellenarAsignaturas() {
-        var asignatura1 = Asignaturas(1, "BBDD")
-        var asignatura2 = Asignaturas(2, "Programacion")
-
-
-//        var profesores1 = Profesores(1, "Antonio", "Mendoza")
-//        var profesores2 = Profesores(2, "Manuel", "Perez")
-//
-//        var profesoresAsignaturas1 = ProfesoresAsignaturas(profesores1, listaAsignaturas1)
-//        var profesoresAsignaturas2 = ProfesoresAsignaturas(profesores2, listaAsignaturas2)
-
-
+        var asignaturaBBDD = Asignaturas(1, "BBDD")
+        var asignaturaProg = Asignaturas(2, "Programacion")
 
         var alumno1 = Alumnos(1, "Alumno1", "ApellidoAlumno1")
         var alumno2 = Alumnos(2, "Alumno2", "ApellidoAlumno2")
         var alumno3 = Alumnos(3, "Alumno3", "ApellidoAlumno3")
+
+        var profesores1 = Profesores(1, "Antonio", "Mendoza")
+        var profesores2 = Profesores(2, "Manuel", "Perez")
+
+
 
         var listaAlumnosBBDD = ArrayList<Alumnos>()
         listaAlumnosBBDD.add(alumno1)
@@ -90,16 +86,28 @@ class MainActivity : AppCompatActivity() {
         var listaAlumnosProg = ArrayList<Alumnos>()
         listaAlumnosProg.add(alumno3)
 
-        var asignaturasAlumnos1 = AsignaturasAlumnos(asignatura1, listaAlumnosBBDD)
-        var asignaturasAlumnos2 = AsignaturasAlumnos(asignatura2, listaAlumnosProg)
+        var listaProfesoresProg = ArrayList<Profesores>()
+        listaProfesoresProg.add(profesores1)
+
+        var listaProfesoresBBDD= ArrayList<Profesores>()
+        listaProfesoresBBDD.add(profesores2)
+
+        var asignaturasAlumnos1 = AsignaturasAlumnos(asignaturaBBDD, listaAlumnosBBDD)
+        var asignaturasAlumnos2 = AsignaturasAlumnos(asignaturaProg, listaAlumnosProg)
+
+        var asignaturasProfesores2 = AsignaturasProfesores(asignaturaProg, listaProfesoresProg)
+        var asignaturasProfesores1 = AsignaturasProfesores(asignaturaBBDD, listaProfesoresBBDD)
+
 
 
         var dataRepository = DataRepository(this)
-//        dataRepository.insertProfesoresAsignaturas(profesoresAsignaturas1)
-//        dataRepository.insertProfesoresAsignaturas(profesoresAsignaturas2)
+
 
         dataRepository.insertAsignaturasAlumnos(asignaturasAlumnos1)
         dataRepository.insertAsignaturasAlumnos(asignaturasAlumnos2)
+
+        dataRepository.insertAsignaturasProfesores(asignaturasProfesores1)
+        dataRepository.insertAsignaturasProfesores(asignaturasProfesores2)
 
     }
     //    var activityListener = View.OnClickListener {

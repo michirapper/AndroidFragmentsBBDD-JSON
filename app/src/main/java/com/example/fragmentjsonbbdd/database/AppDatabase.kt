@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Asignaturas::class, Profesores::class,Alumnos::class, ProfesoresAsignaturasCrossRef::class, AsignaturasAlumnosCrossRef::class], version = 1)
+@Database(entities = [Asignaturas::class, Profesores::class,Alumnos::class, AsignaturasProfesoresCrossRef::class, AsignaturasAlumnosCrossRef::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun asignaturasDao(): AsignaturasDao
     abstract fun profesoresDao(): ProfesoresDao
     abstract fun alumnosDao(): AlumnosDao
-    abstract fun profesoresAsignaturasDao(): ProfesoresAsignaturasDao
+    abstract fun profesoresAsignaturasDao(): AsignaturasProfesoresDao
     abstract fun alumnosAsignaturasDao(): AsignaturasAlumnosDao
 
     companion object {

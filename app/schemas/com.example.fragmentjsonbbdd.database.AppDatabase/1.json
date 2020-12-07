@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "61138904666e72b2a73b61f69a3604ce",
+    "identityHash": "fa445d3f476f67f057265eadc2c9141e",
     "entities": [
       {
         "tableName": "Asignaturas",
@@ -95,26 +95,26 @@
         "foreignKeys": []
       },
       {
-        "tableName": "ProfesoresAsignaturasCrossRef",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`profesoresId` INTEGER NOT NULL, `asignaturasId` INTEGER NOT NULL, PRIMARY KEY(`profesoresId`, `asignaturasId`))",
+        "tableName": "AsignaturasProfesoresCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`asignaturasId` INTEGER NOT NULL, `profesoresId` INTEGER NOT NULL, PRIMARY KEY(`asignaturasId`, `profesoresId`))",
         "fields": [
           {
-            "fieldPath": "profesoresId",
-            "columnName": "profesoresId",
+            "fieldPath": "asignaturasId",
+            "columnName": "asignaturasId",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "asignaturasId",
-            "columnName": "asignaturasId",
+            "fieldPath": "profesoresId",
+            "columnName": "profesoresId",
             "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "profesoresId",
-            "asignaturasId"
+            "asignaturasId",
+            "profesoresId"
           ],
           "autoGenerate": false
         },
@@ -152,7 +152,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '61138904666e72b2a73b61f69a3604ce')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fa445d3f476f67f057265eadc2c9141e')"
     ]
   }
 }

@@ -8,4 +8,6 @@ import androidx.room.Query
 interface ProfesoresDao {
     @Insert
     fun insertAll(vararg profesores: Profesores)
+    @Insert
+    fun insertAll(profesores: List<Profesores>)
 }
