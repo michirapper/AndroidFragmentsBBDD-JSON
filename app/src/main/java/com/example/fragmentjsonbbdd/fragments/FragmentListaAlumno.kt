@@ -16,6 +16,7 @@ import com.example.fragmentjsonbbdd.model.alumno
 class FragmentListaAlumno : Fragment() {
     var activityListener: View.OnClickListener? = null
     var itemSeleccionado: alumno? = null
+
     var thiscontext: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class FragmentListaAlumno : Fragment() {
 
         var items = ArrayList<alumno>()
         for (i in 0..alumno.size-1) {
-            items.add(alumno(alumno.get(i).nombre.toString(), alumno.get(i).apellido.toString()))
+            items.add(alumno(alumno.get(i).alumnosId.toInt(),alumno.get(i).nombre.toString(), alumno.get(i).apellido.toString()))
         }
 
 

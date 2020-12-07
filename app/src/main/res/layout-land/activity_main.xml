@@ -26,4 +26,16 @@
 
     </FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/frameLayoutAlumno"
+        android:layout_width="357dp"
+        android:layout_height="136dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

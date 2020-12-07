@@ -14,7 +14,7 @@ import com.example.fragmentjsonbbdd.database.DataRepository
 import com.example.fragmentjsonbbdd.model.profesor
 
 class FragmentListaProfesor : Fragment(){
-    var activityListener: View.OnClickListener? = null
+    //var activityListener: View.OnClickListener? = null
     var itemSeleccionado: profesor? = null
     var thiscontext: Context? = null
 
@@ -54,9 +54,7 @@ class FragmentListaProfesor : Fragment(){
 
         val adapter = ItemAdapterProfesor(items) { item ->
             itemSeleccionado = item
-            if (activityListener != null) {
-                activityListener!!.onClick(view)
-            }
+
         }
 
         recyclerViewLista.setAdapter(adapter)

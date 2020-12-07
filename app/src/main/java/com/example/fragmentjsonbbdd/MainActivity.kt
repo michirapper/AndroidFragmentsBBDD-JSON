@@ -1,9 +1,11 @@
 package com.example.fragmentjsonbbdd
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fragmentjsonbbdd.activities.alumnoFichaActivity
 import com.example.fragmentjsonbbdd.database.*
 import com.example.fragmentjsonbbdd.fragments.*
 
@@ -50,11 +52,7 @@ class MainActivity : AppCompatActivity() {
                     id: Long
                 ) {
 
-                    Toast.makeText(
-                        this@MainActivity,
-                        spinner.selectedItem.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@MainActivity,spinner.selectedItem.toString(),Toast.LENGTH_SHORT).show()
                     verProfesores(spinner.selectedItem.toString())
                    
                 }
@@ -151,6 +149,7 @@ class MainActivity : AppCompatActivity() {
 
             listaFragmentProfesor = FragmentListaProfesor.newInstance()
             listaFragmentAlumno = FragmentListaAlumno.newInstance()
+            listaFragmentAlumno!!.activityListener = activityListener
 
             listaFragmentProfesor!!.setArguments(asignaturaNombre)
             listaFragmentAlumno!!.setArguments(asignaturaNombre)
@@ -159,38 +158,63 @@ class MainActivity : AppCompatActivity() {
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
 
-        if (frameLayoutFragmentProfesor ==null){
-            // HORIZONTAL
+//        if (frameLayoutFragmentficha !=null){
+//            // HORIZONTAL
+//            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
+//            fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
+//           // fragmentTransaction.add(R.id.frameLayoutFicha, fichaFragment!!)
+//        }
+//        else {
+//            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
+//            fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
+//        }
             fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
             fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
-           // fragmentTransaction.add(R.id.frameLayoutFicha, fichaFragment!!)
-        }
-        else {
-            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
-            fragmentTransaction.add(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
-        }
 
             fragmentTransaction.commit()
         }else{
-           
+
         }
+    }
+
+    var activityListener = View.OnClickListener {
+//        if (frameLayoutFragmentficha==null) {
+//            val fragmentManager = supportFragmentManager
+//            val fragmentTransaction = fragmentManager.beginTransaction()
+//            fragmentTransaction.replace(R.id.frameLayoutFragment, fichaFragment!!)
+//            fragmentTransaction.commit()
+//            fragmentManager.executePendingTransactions()
+//            segundoFragmentActivo = true
+//        }
+
+        val intent = Intent(this, alumnoFichaActivity::class.java).apply {
+            putExtra("idAlumno", listaFragmentAlumno!!.itemSeleccionado?.id.toString())
+        }
+        startActivity(intent)
+
+
+//        Toast.makeText(this@MainActivity,
+//            listaFragmentAlumno!!.itemSeleccionado?.id.toString(),Toast.LENGTH_SHORT).show()
+
+
     }
 
 
 
-    override fun onBackPressed() {
-        if (segundoFragmentActivo && frameLayoutFragmentProfesor != null){
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
-            fragmentTransaction.commit()
-            fragmentManager.executePendingTransactions()
-            segundoFragmentActivo = false
-        }
-        else{
-            super.onBackPressed()
-        }
-    }
+//    override fun onBackPressed() {
+//        if (segundoFragmentActivo && frameLayoutFragmentProfesor != null && frameLayoutFragmentAlumnos!= null){
+//            val fragmentManager = supportFragmentManager
+//            val fragmentTransaction = fragmentManager.beginTransaction()
+//            fragmentTransaction.replace(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
+//            fragmentTransaction.replace(R.id.frameLayoutAlumno, listaFragmentAlumno!!)
+//            fragmentTransaction.commit()
+//            fragmentManager.executePendingTransactions()
+//            segundoFragmentActivo = false
+//        }
+//        else{
+//            super.onBackPressed()
+//        }
+//    }
 
 
 }

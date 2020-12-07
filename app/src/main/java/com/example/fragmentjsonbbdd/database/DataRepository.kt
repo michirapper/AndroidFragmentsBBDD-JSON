@@ -35,6 +35,9 @@ class DataRepository(context: Context) {
     fun getProfesorOne(idAsignatura: Int): Array<AsignaturasProfesores>{
         return GetProfesorOne(asignaturasProfesoresDao!!, idAsignatura).execute().get()
     }
+    fun GetAlumnoOne(alumnoId: Int): Array<Alumnos>{
+        return GetAlumnoOne(alumnosDao!!, alumnoId).execute().get()
+    }
 
     private class InsertAsignaturasProfesoresAsyncTask(private val asignaturasDao: AsignaturasDao, private val profesoresDao: ProfesoresDao, private val asignaturasProfesoresDao: AsignaturasProfesoresDao): AsyncTask<AsignaturasProfesores, Void, Int>(){
         override fun doInBackground(vararg asignaturasProfesores: AsignaturasProfesores?): Int {
@@ -93,6 +96,11 @@ class DataRepository(context: Context) {
     private class GetAlumnos(private val asignaturasAlumnosDao: AsignaturasAlumnosDao, private val idAsignatura: Int) :AsyncTask<Void, Void, Array<AsignaturasAlumnos>>(){
         override fun doInBackground(vararg params: Void?): Array<AsignaturasAlumnos> {
             return asignaturasAlumnosDao.getAlumnos(idAsignatura)
+        }
+    }
+    private class GetAlumnoOne(private val alumnosDao: AlumnosDao, private val idAlumno: Int) :AsyncTask<Void, Void, Array<Alumnos>>(){
+        override fun doInBackground(vararg params: Void?): Array<Alumnos> {
+            return alumnosDao.getAlumnoOne(idAlumno)
         }
     }
 
