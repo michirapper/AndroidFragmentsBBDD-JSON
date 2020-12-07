@@ -5,7 +5,8 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fragmentjsonbbdd.database.*
-import com.example.fragmentjsonbbdd.fragments.FragmentListaProfesor
+import com.example.fragmentjsonbbdd.fragments.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,7 +14,10 @@ class MainActivity : AppCompatActivity() {
     var frameLayoutLista: FrameLayout? = null
   //  var frameLayoutFicha: FrameLayout? = null
 
-    var listaFragment: FragmentListaProfesor? = null
+    var listaFragmentProfesor: FragmentListaProfesor? = null
+
+    var listaFragmentAlumno: FragmentListaAlumno? = null
+
   //  var fichaFragment: FichaFragment? = null
     var segundoFragmentActivo = false
 
@@ -130,6 +134,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun verProfesores(asignatura: String){
         if (!asignatura.equals("")) {
+
+            val asignaturaNombre = Bundle()
+            asignaturaNombre.putString("asignatura", asignatura)
+
+
             frameLayoutFragmentProfesor = findViewById(R.id.frameLayoutProfesor)
 
             //frameLayoutFicha = findViewById(R.id.frameLayoutFicha)
@@ -138,7 +147,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-            listaFragment = FragmentListaProfesor.newInstance()
+            listaFragmentProfesor = FragmentListaProfesor.newInstance()
+
+            listaFragmentProfesor!!.setArguments(asignaturaNombre)
+
             // listaFragment!!.activityListener = activityListener
 
             //fichaFragment = FichaFragment()
@@ -152,11 +164,11 @@ class MainActivity : AppCompatActivity() {
 
         if (frameLayoutFragmentProfesor ==null){
             // HORIZONTAL
-            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragment!!)
+            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
            // fragmentTransaction.add(R.id.frameLayoutFicha, fichaFragment!!)
         }
         else {
-            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragment!!)
+            fragmentTransaction.add(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
         }
 
             fragmentTransaction.commit()
@@ -169,7 +181,7 @@ class MainActivity : AppCompatActivity() {
         if (segundoFragmentActivo && frameLayoutFragmentProfesor != null){
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.frameLayoutProfesor, listaFragment!!)
+            fragmentTransaction.replace(R.id.frameLayoutProfesor, listaFragmentProfesor!!)
             fragmentTransaction.commit()
             fragmentManager.executePendingTransactions()
             segundoFragmentActivo = false

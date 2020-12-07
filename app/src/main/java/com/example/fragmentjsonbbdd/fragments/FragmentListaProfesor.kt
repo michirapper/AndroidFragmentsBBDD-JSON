@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fragmentjsonbbdd.R
 import com.example.fragmentjsonbbdd.adapters.ItemAdapterProfesor
+import com.example.fragmentjsonbbdd.database.AsignaturasProfesores
 import com.example.fragmentjsonbbdd.database.DataRepository
+import com.example.fragmentjsonbbdd.database.Profesores
 import com.example.fragmentjsonbbdd.model.profesor
-import java.util.function.Consumer
 
 class FragmentListaProfesor : Fragment(){
     var activityListener: View.OnClickListener? = null
@@ -31,22 +32,36 @@ class FragmentListaProfesor : Fragment(){
         // Inflate the layout for this fragment
         val v= inflater.inflate(R.layout.fragment_lista_profesor, container, false)
 
+        val asignatura = arguments!!.getString("asignatura")
+
         val recyclerViewLista: RecyclerView = v.findViewById<View>(R.id.recyclerviewlista) as RecyclerView
         thiscontext = container?.getContext();
         var dataRepository = DataRepository(thiscontext!!)
-        var pedidosGuardados = dataRepository.getProfesorOne(1)
-
-        var items = ArrayList<profesor>()
-//        for (i in pedidosGuardados){
-//            val contador = 0
-//           // pedidosGuardados.size
-//            //items.add(profesor( pedidosGuardados.size.toString(), "adios"))
-//            items.add(profesor(i.profesores.get(contador).nombre.toString(), i.profesores.get(contador).apellido.toString()))
-//            contador+1
-//        }
-        for (i in 1..20){
-            items.add(profesor(i.toString(), i.toString()))
+        var numeroAsignatura: Int
+        if (asignatura.equals("BBDD")){
+            numeroAsignatura = 1
+        }else{
+            numeroAsignatura = 2
         }
+
+        var pedidosGuardados = dataRepository.getProfesorOne(numeroAsignatura)
+        var items = ArrayList<profesor>()
+        for (i in pedidosGuardados){
+            val contador = 0
+           // pedidosGuardados.size
+            //items.add(profesor( pedidosGuardados.size.toString(), "adios"))
+            items.add(
+                profesor(
+                    i.profesores.get(contador).nombre.toString(), i.profesores.get(
+                        contador
+                    ).apellido.toString()
+                )
+            )
+            contador+1
+        }
+//        for (i in 1..20){
+//            items.add(profesor(i.toString(), i.toString()))
+//        }
 
         val adapter = ItemAdapterProfesor(items) { item ->
             itemSeleccionado = item
