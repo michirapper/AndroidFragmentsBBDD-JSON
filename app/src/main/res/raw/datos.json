@@ -1,0 +1,65 @@
+{
+  "asignaturas": [
+    "programacion",
+    "BBDD"
+  ],
+  "profesores": [
+    {
+      "codigo": 1,
+      "nombre": "Antonio",
+      "apellido": "Mendoza",
+      "asignatura": "programacion"
+    },
+    {
+      "codigo": 2,
+      "nombre": "Manuel",
+      "apellido": "Perez",
+      "asignatura": "BBDD"
+    }
+  ],
+  "alumnos": [
+    {
+      "codigo": 1,
+      "nombre": "Alumno1",
+      "apellido": "ApellidoAlumno1",
+      "Asignaturas": [
+        "programacion",
+        "BBDD"
+      ]
+    },
+    {
+      "codigo": 2,
+      "nombre": "Alumno2",
+      "apellido": "ApellidoAlumno2",
+      "Asignaturas": [
+        "programacion",
+        "BBDD"
+      ]
+    },
+    {
+      "codigo": 3,
+      "nombre": "Alumno3",
+      "apellido": "ApellidoAlumno3",
+      "Asignaturas": [
+        "programacion",
+        "BBDD"
+      ]
+    },
+    {
+      "codigo": 4,
+      "nombre": "Alumno4",
+      "apellido": "ApellidoAlumno4",
+      "Asignaturas": [
+        "BBDD"
+      ]
+    },
+    {
+      "codigo": 5,
+      "nombre": "Alumno5",
+      "apellido": "ApellidoAlumno5",
+      "Asignaturas": [
+        "programacion"
+      ]
+    }
+  ]
+}

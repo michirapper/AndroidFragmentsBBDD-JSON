@@ -37,14 +37,14 @@ class FragmentListaProfesor : Fragment(){
         var dataRepository = DataRepository(thiscontext!!)
         var numeroAsignatura: Int
         if (asignatura.equals("BBDD")){
-            numeroAsignatura = 1
-        }else{
             numeroAsignatura = 2
+        }else{
+            numeroAsignatura = 1
         }
 
 
         var profesoresGuardados = dataRepository.getProfesorOne(numeroAsignatura)
-        var profesor = profesoresGuardados.component1().profesores
+        var profesor = profesoresGuardados.get(0).profesores
 
         var items = ArrayList<profesor>()
 

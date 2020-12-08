@@ -39,9 +39,9 @@ class FragmentListaAlumno : Fragment() {
         var dataRepository = DataRepository(thiscontext!!)
         var numeroAsignatura: Int
         if (asignatura.equals("BBDD")) {
-            numeroAsignatura = 1
-        } else {
             numeroAsignatura = 2
+        } else {
+            numeroAsignatura = 1
         }
 
 
