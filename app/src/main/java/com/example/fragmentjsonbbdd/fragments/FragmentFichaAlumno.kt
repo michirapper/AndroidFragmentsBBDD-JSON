@@ -30,9 +30,9 @@ class FragmentFichaAlumno : Fragment(){
         val idAlumno = arguments?.getString("idAlumno")?.toInt()
 
         thiscontext = container?.getContext();
-        var dataRepository = DataRepository(thiscontext!!)
+        var dataRepository = thiscontext?.let { DataRepository(it) }
 
-        var alumnosGuardados = idAlumno?.let { dataRepository.GetAlumnoOne(it.toInt()) }
+        var alumnosGuardados = idAlumno?.let { dataRepository?.GetAlumnoOne(it.toInt()) }
 
         textViewNombre = v.findViewById<View>(R.id.textViewFichaNombre) as TextView
         textViewApellido = v.findViewById<View>(R.id.textViewFichaApellido) as TextView
